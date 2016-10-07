@@ -53,5 +53,6 @@ server.on('request', (req, res) => {
     res.end("bad URL " + req.url);
   }
 });
+require('./httpsniffer').sniffOn(server);
 server.listen(8124, 'localhost');
 console.log('listening to http://localhost:8124');
