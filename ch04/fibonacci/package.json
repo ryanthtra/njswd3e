@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "set PORT=4242 & set DEBUG=fibonacci:* & node ./bin/www"
+    "start": "SERVERPORT=3002 DEBUG=fibonacci:* node ./bin/www",
+    "server": "SERVERPORT=3002 node ./fiboserver --max_old_space_size 5000",
+    "client": "node ./fiboclient"
   },
   "dependencies": {
     "body-parser": "~1.15.1",

@@ -2,24 +2,51 @@ var events = require('events');
 var util = require('util');
 
 // Define the Pulser object
-function Pulser() {
+function Pulser()
+{
   events.EventEmitter.call(this);
 }
+
 util.inherits(Pulser, events.EventEmitter);
 
-Pulser.prototype.start = function() {
+Pulser.prototype.start = function()
+{
   setInterval(() => {
     util.log('>>>> pulse');
-    this.emit('pulse');         // Send out an event called 'pulse'
+    this.emit('pulse');
     util.log('<<<< pulse');
   }, 1000);
 };
 
+
 // Instantiate a Pulser object
 var pulser = new Pulser();
+
 // Handler function
-pulser.on('pulse', () => {      // Listen for an event called 'pulse'
+pulser.on('pulse', () => {
   util.log('pulse received');
 });
+
 // Start it pulsing
 pulser.start();
+
+var listener = (function() {
+  var counter = 0;
+
+  var incrementCounter = function()
+  {
+    counter++;
+  };
+
+  return {
+    increment: function()
+    {
+      incrementCounter();
+      util.log(`New counter value: ${counter}`);
+    }
+  };
+})();
+
+pulser.on('pulse', () => {
+  listener.increment();
+});
